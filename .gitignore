@@ -208,5 +208,5 @@ __marimo__/
 
 # dev
 PSToolkit/test_wid.py
-*/.idea
+/.idea/*
 /PSToolkit/examples/*

@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 from typing import Callable
 from typing import Optional
+from typing import Type
 
 from PySide6 import QtCore
 from PySide6 import QtWidgets
@@ -134,8 +135,9 @@ def exec_single_instance_app(
     return code
 
 
-def exec_app(main_window: QtWidgets.QMainWindow) -> None:
+def exec_app(window_cls: Type[QtWidgets.QMainWindow]) -> None:
     """Run a QApplication for a given main window (basic)."""
     app = QtWidgets.QApplication(sys.argv)
-    main_window.show()
+    win = window_cls()
+    win.show()
     app.exec()
