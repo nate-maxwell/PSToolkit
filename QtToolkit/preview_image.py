@@ -23,6 +23,8 @@ from PySide6 import QtWidgets
 import QtToolkit.gui
 
 
+# TODO: Refactor this to work with image_sequence.ImageSequence
+
 class PreviewImage(QtWidgets.QWidget):
     def __init__(self, label: str, size: tuple[int, int] = None,
                  label_top: bool = True):
