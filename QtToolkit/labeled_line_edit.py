@@ -13,9 +13,13 @@ from PySide6 import QtWidgets
 
 
 class LabeledLineEdit(QtWidgets.QWidget):
-    def __init__(self, text: str) -> None:
+    def __init__(self, text: str, vertical: bool = False) -> None:
         super().__init__()
-        self.layout_main = QtWidgets.QHBoxLayout()
+        if vertical:
+            self.layout_main = QtWidgets.QVBoxLayout()
+        else:
+            self.layout_main = QtWidgets.QHBoxLayout()
+
         self.layout_main.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout_main)
         self.label = QtWidgets.QLabel(text)
