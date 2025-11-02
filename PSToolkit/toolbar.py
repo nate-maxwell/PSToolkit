@@ -29,6 +29,13 @@ DEFAULT_ICON = PSToolkit.gui.BUTTON_BLACK_40X40
 
 
 class Toolbar(QtWidgets.QToolBar):
+    """
+    A shelf-like toolbar with top level buttons and nestable sub-menus.
+
+    Notes:
+        - Be sure to override Toolbar.build() in derived classes or the toolbar
+          won't build!
+    """
     def __init__(self, toolbar_name: str, parent=None) -> None:
         super().__init__(parent=parent)
         self.default_button_resolution: list[int] = [40, 40]
@@ -70,12 +77,12 @@ class Toolbar(QtWidgets.QToolBar):
         """Adds a toolbar button that is connected to the given command.
 
         Args:
-            label(str): The button label.
-            command(Callable): The function to connect to the button press,
-             defaults to pass.
-            image_path(Optional[Path]): The path to the button icon, if set to
-             None: a blank item is added.
-             Defaults to PSToolkit.gui.BUTTON_BLACK_40X40.
+            label (str): The button label.
+            command (Callable): The function to connect to the button press,
+              defaults to pass.
+            image_path (Optional[Path]): The path to the button icon, if set to
+              None: a blank item is added.
+              Defaults to PSToolkit.gui.BUTTON_BLACK_40X40.
         """
         action = QtGui.QAction(label, self)
         action.triggered.connect(command)
@@ -88,14 +95,14 @@ class Toolbar(QtWidgets.QToolBar):
         """Adds a submenu, a collapsable list of options, to the toolbar.
 
         Args:
-            label(str): The menu label.
-            image_path(Optional[Path]): The path to the menu icon, if set to
-             None: a blank item is added.
-             Defaults to PSToolkit.gui.BUTTON_BLACK_40X40.
+            label (str): The menu label.
+            image_path (Optional[Path]): The path to the menu icon, if set to
+              None: a blank item is added.
+              Defaults to PSToolkit.gui.BUTTON_BLACK_40X40.
 
         Returns:
             QtWidgets.QMenu: The created submenu, incase further submenus need
-             to be added to the created submenu.
+              to be added to the created submenu.
         """
         submenu = QtWidgets.QMenu(f'{label}_submenu', self)
 
@@ -114,12 +121,12 @@ class Toolbar(QtWidgets.QToolBar):
         """Adds a nested submenu to the given submenu parent.
 
         Args:
-            label(str): The submenu text label.
-            parent(QtWidgets.QMenu): The menu to add the submenu to.
+            label (str): The submenu text label.
+            parent (QtWidgets.QMenu): The menu to add the submenu to.
 
         Returns:
             QtWidgets.QMenu: The created submenu, incase further submenus need to be added to the created
-                submenu.
+            submenu.
         """
         submenu = QtWidgets.QMenu(f'{label}_submenu', self)
         action = QtGui.QAction(label, self)  # The actual label on the dropdown
@@ -135,9 +142,9 @@ class Toolbar(QtWidgets.QToolBar):
         """Adds an item to the given submenu connected to the given command.
 
         Args:
-            submenu(QtWidgets.QMenu): The submenu to add the item to.
-            cmd_name(str): The text label for the added item.
-            cmd(Callable): The function to connect the item selection to.
+            submenu (QtWidgets.QMenu): The submenu to add the item to.
+            cmd_name (str): The text label for the added item.
+            cmd (Callable): The function to connect the item selection to.
         """
         item = submenu.addAction(cmd_name)
         item.triggered.connect(cmd)

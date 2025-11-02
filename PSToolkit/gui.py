@@ -3,7 +3,7 @@
 
 * Description:
 
-    Lorem ipsum dolor sit amet.
+    Paths for icons + stylesheets located within the toolkit module.
 """
 
 

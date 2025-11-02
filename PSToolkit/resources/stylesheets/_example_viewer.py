@@ -16,7 +16,6 @@ from PySide6 import QtWidgets
 import PSToolkit.gui
 import PSToolkit.shapes
 from PSToolkit.main_window import MainWindow
-from PSToolkit.labeled_combobox import LabeledComboBox
 from PSToolkit.searchable_list import SearchableList
 from PSToolkit.groupbox import GroupBox
 
@@ -107,7 +106,6 @@ class StyleViewer(MainWindow):
 
 
 def main():
-    """Runs the standalone Batch Renamer."""
     app = QtWidgets.QApplication(sys.argv)
     window = StyleViewer()
     window.show()
