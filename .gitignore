@@ -209,4 +209,4 @@ __marimo__/
 # dev
 PSToolkit/test_wid.py
 */.idea
-/PSToolkit/example/*
+/PSToolkit/examples/*
