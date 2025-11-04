@@ -35,8 +35,9 @@ PySide. Use `object.value()` or  `object.get_value()` and
 
 ## Resources
 
-`QtToolkit.gui` contains path variables to the stored icons and stylesheets.
-*/.idea
+`PySide6TK.icons` contains path variables to the stored icons while
+`PySide6TK.styles` contains path variables to stored stylesheets. All of which
+can also be gotten from `PySide6TK.QtWrappers`.
 
 ## Stylesheet Viewer
 
