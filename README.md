@@ -8,7 +8,7 @@ Currently, PySide 6 compatible.
 When adding to the toolkit, be sure to run `PySide6TK._generate_namespace.py`
 to rebuild the `PySide6TK.QtWrappers.py` file before pushing updates.
 
-### Namespaces
+## Namespaces
 
 Wrapper objects and helper methods can be imported similarly to how PySide
 namespaces are usually handled:
@@ -23,7 +23,7 @@ class Foo(QtWrappers.MainWindow):
         self.setCentralWidget(self.wid)
 ```
 
-### Wrappers
+## Wrappers
 
 Wrapper methods will always be snake_case, i.e. if a widget has methods to
 add widgets or layouts, it will be `widget.add_widget(wid)`,
@@ -35,12 +35,12 @@ Properties are not used to keep the workflow / coding style similar to actual
 PySide. Use `object.value()` or  `object.get_value()` and 
 `object.set_value(val)`.
 
-### Resources
+## Resources
 
 `QtToolkit.gui` contains path variables to the stored icons and stylesheets.
 */.idea
 
-### Stylesheet Viewer
+## Stylesheet Viewer
 
 Run `PSToolkit._example.style_viewer` file itself, to see an example widget
 that displays all the collected style sheets.
