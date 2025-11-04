@@ -9,10 +9,10 @@
 
 from pathlib import Path
 
-import PSToolkit
+import PySide6TK
 
 
-STYLE_PATH = Path(PSToolkit.RESOURCES_PATH, 'stylesheets')
+STYLE_PATH = Path(PySide6TK.RESOURCES_PATH, 'stylesheets')
 
 # ----------QSS----------------------------------------------------------------
 QSS_ADAPTIC = Path(STYLE_PATH, 'Adaptic.qss')

@@ -10,7 +10,7 @@
 
 from PySide6 import QtWidgets
 
-import PSToolkit.layout
+import PySide6TK.layout
 
 
 class GroupBox(QtWidgets.QGroupBox):
@@ -30,7 +30,7 @@ class GroupBox(QtWidgets.QGroupBox):
         self.setLayout(self.layout)
 
     def clear(self) -> None:
-        PSToolkit.layout.clear_layout(self.layout)
+        PySide6TK.layout.clear_layout(self.layout)
 
     def add_widget(self, widget: QtWidgets.QWidget) -> None:
         self.layout.addWidget(widget)
@@ -43,7 +43,7 @@ class GroupBox(QtWidgets.QGroupBox):
 
     def on_toggle(self, expanded: bool) -> None:
         """Recursively sets the visibility of items in the layout."""
-        PSToolkit.layout.set_layout_visibility(self.layout, expanded)
+        PySide6TK.layout.set_layout_visibility(self.layout, expanded)
         self.setMaximumHeight(self.sizeHint().height() if expanded else self.fontMetrics().height() * 2)
         self.layout.invalidate()
         self.updateGeometry()

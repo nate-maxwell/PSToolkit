@@ -13,8 +13,8 @@ from typing import Optional
 from PySide6 import QtCore
 from PySide6 import QtWidgets
 
-import PSToolkit.regx
-import PSToolkit.dialogs
+import PySide6TK.regx
+import PySide6TK.dialogs
 
 
 class LabeledComboBox(QtWidgets.QWidget):
@@ -51,7 +51,7 @@ class LabeledComboBox(QtWidgets.QWidget):
         """Returns whether the current item does not contain non-alpha-numeric
         or non-underscore characters.
         """
-        return PSToolkit.regx.validation_no_special_chars(
+        return PySide6TK.regx.validation_no_special_chars(
             self.cmb_box.currentText())
 
     def clear(self) -> None:
@@ -65,7 +65,7 @@ class LabeledComboBox(QtWidgets.QWidget):
         self.cmb_box.addItems(items)
 
     def append_item(self) -> None:
-        dlg = PSToolkit.dialogs.SingleLineTextDialog('New Item', 'Name:')
+        dlg = PySide6TK.dialogs.SingleLineTextDialog('New Item', 'Name:')
         if dlg.exec():
             self.add_items([dlg.text()])
             self.cmb_box.model().sort(0, QtCore.Qt.SortOrder.AscendingOrder)

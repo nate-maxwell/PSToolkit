@@ -12,15 +12,15 @@ from pathlib import Path
 from PySide6 import QtCore
 from PySide6 import QtWidgets
 
-import PSToolkit.styles
-import PSToolkit.shapes
-from PSToolkit import app
-from PSToolkit.main_window import MainWindow
-from PSToolkit.searchable_list import SearchableList
-from PSToolkit.groupbox import GroupBox
+import PySide6TK.styles
+import PySide6TK.shapes
+from PySide6TK import app
+from PySide6TK.main_window import MainWindow
+from PySide6TK.searchable_list import SearchableList
+from PySide6TK.groupbox import GroupBox
 
 
-_styles = PSToolkit.styles.STYLE_PATH.glob('*')
+_styles = PySide6TK.styles.STYLE_PATH.glob('*')
 _sheets = [i.name for i in _styles]
 
 
@@ -60,23 +60,23 @@ class ExampleWidget(QtWidgets.QWidget):
 
         self.grp_example.add_widget(QtWidgets.QLabel('Combo Box'))
         self.grp_example.add_widget(self.cmb_example)
-        self.grp_example.add_widget(PSToolkit.shapes.HorizontalLine())
+        self.grp_example.add_widget(PySide6TK.shapes.HorizontalLine())
         self.grp_example.add_widget(self.le_example)
-        self.grp_example.add_widget(PSToolkit.shapes.HorizontalLine())
+        self.grp_example.add_widget(PySide6TK.shapes.HorizontalLine())
         self.grp_example.add_widget(QtWidgets.QLabel('Spin Box'))
         self.grp_example.add_widget(self.sbx_example)
-        self.grp_example.add_widget(PSToolkit.shapes.HorizontalLine())
+        self.grp_example.add_widget(PySide6TK.shapes.HorizontalLine())
         self.grp_example.add_widget(QtWidgets.QLabel('Double Spin Box'))
         self.grp_example.add_widget(self.fsbx_example)
-        self.grp_example.add_widget(PSToolkit.shapes.HorizontalLine())
+        self.grp_example.add_widget(PySide6TK.shapes.HorizontalLine())
         self.grp_example.add_widget(self.cbx_example)
         self.grp_example.add_widget(self.rdo_example)
-        self.grp_example.add_widget(PSToolkit.shapes.HorizontalLine())
+        self.grp_example.add_widget(PySide6TK.shapes.HorizontalLine())
         self.grp_example.add_widget(self.btn_example)
-        self.grp_example.add_widget(PSToolkit.shapes.HorizontalLine())
+        self.grp_example.add_widget(PySide6TK.shapes.HorizontalLine())
         self.grp_example.add_widget(QtWidgets.QLabel('Dial'))
         self.grp_example.add_widget(self.dial_example)
-        self.grp_example.add_widget(PSToolkit.shapes.HorizontalLine())
+        self.grp_example.add_widget(PySide6TK.shapes.HorizontalLine())
         self.grp_example.add_widget(QtWidgets.QLabel('Slider'))
         self.grp_example.add_widget(self.slider_example)
         self.grp_example.add_stretch()
@@ -85,7 +85,7 @@ class ExampleWidget(QtWidgets.QWidget):
         self.layout_main.addWidget(self.grp_example)
 
     def _on_item_selected(self) -> None:
-        p = Path(PSToolkit.styles.STYLE_PATH, f'{self.sl_items.selected_item()}')
+        p = Path(PySide6TK.styles.STYLE_PATH, f'{self.sl_items.selected_item()}')
         if self.sl_items.selected_items is None or not p.exists():
             return
 

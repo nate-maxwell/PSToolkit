@@ -29,10 +29,10 @@ def emit_signal(signal_name: str) -> Callable:
         method completion.
 
     Examples:
-        >>> import PSToolkit.signal
+        >>> import PySide6TK.signal
         >>>
         >>> class MyClass(QtCore.QObject):
-        >>>     my_signal = PSToolkit.signal.signal()
+        >>>     my_signal = PySide6TK.signal.signal()
         >>>
         >>>     @emit_signal('my_signal')
         >>>     def some_method(self, *args):

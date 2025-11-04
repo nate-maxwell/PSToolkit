@@ -1,6 +1,6 @@
-from PSToolkit import app
-from PSToolkit.main_window import MainWindow
-from PSToolkit.file_selector import FileSelector
+from PySide6TK import app
+from PySide6TK.main_window import MainWindow
+from PySide6TK.file_selector import FileSelector
 
 
 class Foo(MainWindow):

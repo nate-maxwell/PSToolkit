@@ -9,10 +9,10 @@
 
 from PySide6 import QtWidgets
 
-from PSToolkit.main_window import MainWindow
-from PSToolkit.toolbar import Toolbar
-from PSToolkit import icons
-from PSToolkit import app
+from PySide6TK.main_window import MainWindow
+from PySide6TK.toolbar import Toolbar
+from PySide6TK import icons
+from PySide6TK import app
 
 
 class TestToolbar(Toolbar):
@@ -175,7 +175,7 @@ class TestWindow(MainWindow):
                          (0, 0), (0, 0))
         self.toolbar = TestToolbar()
         self.setCentralWidget(self.toolbar)
-        self.setMinimumWidth(1000)
+        self.resize(1350, 50)
 
 
 if __name__ == '__main__':

@@ -11,8 +11,8 @@ from collections.abc import Mapping
 
 from PySide6 import QtWidgets
 
-from PSToolkit import shapes
-from PSToolkit.groupbox import GroupBox
+from PySide6TK import shapes
+from PySide6TK.groupbox import GroupBox
 
 
 class DictViewer(GroupBox):

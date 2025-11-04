@@ -6,9 +6,9 @@
     Sandbox file for testing - DO NOT CHECK IN!
 """
 
-from PSToolkit import app
-from PSToolkit.dict_viewer import DictViewer
-from PSToolkit.main_window import MainWindow
+from PySide6TK import app
+from PySide6TK.dict_viewer import DictViewer
+from PySide6TK.main_window import MainWindow
 
 data = {
     "parameters": {

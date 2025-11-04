@@ -9,10 +9,10 @@
 
 from pathlib import Path
 
-import PSToolkit
+import PySide6TK
 
 
-ICONS_PATH = Path(PSToolkit.RESOURCES_PATH, 'icons')
+ICONS_PATH = Path(PySide6TK.RESOURCES_PATH, 'icons')
 
 # ----------Generic Color Button Icons-----------------------------------------
 BUTTON_BLUE_40X40 = Path(ICONS_PATH, 'ICON_Default_Blue_40x40.png')

@@ -11,7 +11,7 @@
 
 from PySide6 import QtWidgets
 
-from PSToolkit.preview_image import PreviewImage
+from PySide6TK.preview_image import PreviewImage
 
 
 class PreviewSequence(PreviewImage):

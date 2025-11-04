@@ -5,8 +5,8 @@ Currently, PySide 6 compatible.
 
 ### Stylesheet Viewer
 
-Run `PSToolkit.stylesheets._example_viewer.main()`, or the file itself, to see
-an example widget that displays all the collected style sheets.
+Run `PSToolkit._example.style_viewer` file itself, to see an example widget
+that displays all the collected style sheets.
 
 <img src="https://i.imgur.com/DePm39f.png">
 

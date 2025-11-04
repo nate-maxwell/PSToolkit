@@ -20,7 +20,7 @@ from PySide6 import QtGui
 from PySide6.QtCore import QStandardPaths
 from PySide6 import QtWidgets
 
-import PSToolkit.icons
+import PySide6TK.icons
 
 
 _optional_window = Optional[QtWidgets.QMainWindow]
@@ -69,7 +69,7 @@ def set_window_icon(window: QtWidgets.QMainWindow,
             or the path to it.
     """
     if type(icon) is str:
-        icon_path = Path(PSToolkit.gui.ICONS_PATH, icon)
+        icon_path = Path(PySide6TK.gui.ICONS_PATH, icon)
     else:
         icon_path = icon
     window.setWindowIcon(QtGui.QIcon(icon_path.as_posix()))

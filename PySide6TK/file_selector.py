@@ -11,7 +11,7 @@ from pathlib import Path
 
 from PySide6 import QtWidgets
 
-from PSToolkit.labeled_line_edit import LabeledLineEdit
+from PySide6TK.labeled_line_edit import LabeledLineEdit
 
 
 class FileSelector(QtWidgets.QWidget):
@@ -40,11 +40,12 @@ class FileSelector(QtWidgets.QWidget):
 
     def find_path(self) -> None:
         directory = ''
-        if self.le_path.text:
-            directory = self.le_path.text
-        location = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', directory)
-        self.le_path.set_text(location[0])
+        if self.le_path.text():
+            directory = self.le_path.text()
+        location, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', directory)
+        if location:
+            self.le_path.set_text(location)
 
     @property
     def path(self) -> Path:
-        return Path(self.le_path.text)
+        return Path(self.le_path.text())

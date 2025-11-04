@@ -1,15 +1,15 @@
 from PySide6 import QtWidgets
 
-import PSToolkit.app
-import PSToolkit.main_window
-from PSToolkit.labeled_combobox import LabeledComboBox
-from PSToolkit.labeled_line_edit import LabeledLineEdit
-from PSToolkit.labeled_spinbox import LabeledSpinBox
-from PSToolkit.grid_layout import GridLayout
-from PSToolkit.groupbox import GroupBox
+import PySide6TK.app
+import PySide6TK.main_window
+from PySide6TK.labeled_combobox import LabeledComboBox
+from PySide6TK.labeled_line_edit import LabeledLineEdit
+from PySide6TK.labeled_spinbox import LabeledSpinBox
+from PySide6TK.grid_layout import GridLayout
+from PySide6TK.groupbox import GroupBox
 
 
-class ExampleWindow(PSToolkit.main_window.MainWindow):
+class ExampleWindow(PySide6TK.main_window.MainWindow):
     def __init__(self) -> None:
         super().__init__('Example Labeled Components')
         self.widget_main = QtWidgets.QWidget()
@@ -19,7 +19,7 @@ class ExampleWindow(PSToolkit.main_window.MainWindow):
         self.setFixedWidth(400)
 
         # -----Labeled---------------------------------------------------------
-        self.group_labeled = GroupBox('Labeled')
+        self.group_labeled = GroupBox('Labeled On Widget')
 
         items_dyn = ['alpha', 'bravo', 'charlie', 'echo']
         self.combo_dynamic = LabeledComboBox('Dynamic Combobox', items_dyn, True)
@@ -36,7 +36,7 @@ class ExampleWindow(PSToolkit.main_window.MainWindow):
         self.spinbox_float.set_value(21.4)
 
         # -----Unlabeled-------------------------------------------------------
-        self.group_unlabeled = GroupBox('Unlabeled, using GridLayout')
+        self.group_unlabeled = GroupBox('Unlabeled Widget, Labels in GridLayout')
 
         items_dyn = ['alpha', 'bravo', 'charlie', 'echo']
         self.un_combo_dynamic = LabeledComboBox('', items_dyn, True)
@@ -78,4 +78,4 @@ class ExampleWindow(PSToolkit.main_window.MainWindow):
 
 
 if __name__ == '__main__':
-    PSToolkit.app.exec_app(ExampleWindow, 'ExampleLabeledComponents')
+    PySide6TK.app.exec_app(ExampleWindow, 'ExampleLabeledComponents')

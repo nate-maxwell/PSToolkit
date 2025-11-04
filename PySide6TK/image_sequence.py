@@ -20,7 +20,7 @@ from typing import Optional
 from PySide6 import QtGui
 from PySide6 import QtCore
 
-import PSToolkit.regx
+import PySide6TK.regx
 
 
 class ImageSequence(QtCore.QObject):
@@ -87,7 +87,7 @@ class ImageSequence(QtCore.QObject):
         self._directory = directory
         if directory.is_dir():
             self._frames = [Path(directory, filename).as_posix() for filename in os.listdir(directory)]
-            PSToolkit.regx.natural_sort_strings(self._frames)
+            PySide6TK.regx.natural_sort_strings(self._frames)
 
     @property
     def dirname(self) -> Path:
