@@ -65,3 +65,4 @@ class PreviewSequence(PreviewImage):
         self._playing = False
         self.stop()
         self.reset()
+        self.sequence.jump_to_frame(0)

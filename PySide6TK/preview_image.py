@@ -38,7 +38,7 @@ class PreviewImage(QtWidgets.QWidget):
         super().__init__()
 
         self._size = (200, 200) if size is None else size
-        self._sequence: Union[ImageSequence, None] = None
+        self.sequence: Union[ImageSequence, None] = None
         self._default_image_path: Path = Path(PySide6TK.icons.ICON_NO_PREVIEW_384x384)
 
         self._layout = QtWidgets.QVBoxLayout(self)
@@ -76,37 +76,37 @@ class PreviewImage(QtWidgets.QWidget):
             self._set_pixmap(self._pixmap_from_path(self._default_image_path))
             return
 
-        self._sequence = ImageSequence(p, self)
-        self._sequence.frame_changed.connect(self._on_frame_changed)
-        self._on_frame_changed(self._sequence.current_frame_number or 0)
+        self.sequence = ImageSequence(p, self)
+        self.sequence.frame_changed.connect(self._on_frame_changed)
+        self._on_frame_changed(self.sequence.current_frame_number or 0)
 
     def play(self) -> None:
         """Begin playback."""
-        if not self._sequence:
+        if not self.sequence:
             return
-        self._sequence.start()
+        self.sequence.start()
 
     def pause(self) -> None:
         """Pause playback (frame remains)."""
-        if self._sequence and getattr(self._sequence, '_timer', None):
-            self._sequence.pause()
+        if self.sequence and getattr(self.sequence, '_timer', None):
+            self.sequence.pause()
 
     def resume(self) -> None:
         """Resume playback if paused."""
-        if self._sequence and getattr(self._sequence, '_timer', None):
-            self._sequence.resume()
+        if self.sequence and getattr(self.sequence, '_timer', None):
+            self.sequence.resume()
 
     def stop(self) -> None:
         """Stop playback (frame index preserved by ImageSequence unless reset)."""
-        if self._sequence and getattr(self._sequence, '_timer', None):
-            self._sequence.stop()
+        if self.sequence and getattr(self.sequence, '_timer', None):
+            self.sequence.stop()
 
     def reset(self) -> None:
         """Stop (if running) and reset to frame 0; updates preview."""
-        if not self._sequence:
+        if not self.sequence:
             return
-        self._sequence.reset()
-        self._on_frame_changed(self._sequence.current_frame_number or 0)
+        self.sequence.reset()
+        self._on_frame_changed(self.sequence.current_frame_number or 0)
 
     # ----------Overrides / Internals------------------------------------------
 
@@ -119,10 +119,10 @@ class PreviewImage(QtWidgets.QWidget):
 
     def _on_frame_changed(self, _frame_index: int) -> None:
         """Slot for ImageSequence.frame_changed: update pixmap with scaling."""
-        if not self._sequence:
+        if not self.sequence:
             return
 
-        pix: QtGui.QPixmap = self._sequence.current_pixmap
+        pix: QtGui.QPixmap = self.sequence.current_pixmap
         self._set_pixmap(pix)
 
     def _set_pixmap(self, pixmap: QtGui.QPixmap) -> None:
@@ -144,18 +144,18 @@ class PreviewImage(QtWidgets.QWidget):
 
     def _disconnect_sequence(self) -> None:
         """Detach old sequence and stop any timers safely."""
-        if self._sequence is None:
+        if self.sequence is None:
             return
 
         try:
-            if getattr(self._sequence, '_timer', None):
-                self._sequence.stop()
+            if getattr(self.sequence, '_timer', None):
+                self.sequence.stop()
         except (RuntimeError, AttributeError) as err:
             print(f'[PreviewImage] Warning: failed to stop ImageSequence timer: {err!r}')
 
         try:
-            self._sequence.frame_changed.disconnect(self._on_frame_changed)
+            self.sequence.frame_changed.disconnect(self._on_frame_changed)
         except (TypeError, RuntimeError) as err:
             print(f'[PreviewImage] Warning: failed to disconnect frame_changed: {err!r}')
 
-        self._sequence = None
+        self.sequence = None
