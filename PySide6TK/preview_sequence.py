@@ -26,8 +26,10 @@ class PreviewSequence(PreviewImage):
 
         Notes:
             - Uses ImageSequence for both single-frame and multi-frame sources.
-            - Connects to ImageSequence.frame_changed to update the pixmap live.
-            - Make sure to call close() (or let Qt manage lifetime) so timers stop.
+            - Connects to ImageSequence.frame_changed to update the pixmap
+              live.
+            - Make sure to call close() (or let Qt manage lifetime) so timers
+              stop.
         """
 
     def __init__(self, label: str, size: tuple[int, int] | None = None) -> None:
