@@ -52,7 +52,7 @@ PySide. Use `object.value()` or  `object.get_value()` and
 `object.set_value(val)`.
 
 ### Constructors
-If able, widgets follow the following constructor pattern:
+If able, widgets follow the following constructor pattern for standardized organization:
 ```python
 def __init__(self) -> None:
     super().__init__()
@@ -60,7 +60,6 @@ def __init__(self) -> None:
     self._create_layout()
     self._create_connections()
 ```
-for standardized organization.
 Simpler widgets may forgo this pattern, but more component heavy wrappers are
 organized this way.
 
