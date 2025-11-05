@@ -7,4 +7,4 @@ bug with the MainWindow class retaining geometry on close, but I've been too
 busy [lazy] to fix it).
 
 If you have any questions, feel free to leave your email as a comment on
-GitHub.
+GitHub (☞ ͡° ͜ʖ ͡°)☞.
