@@ -12,6 +12,8 @@ import sys
 from pathlib import Path
 from typing import Iterable
 
+import PySide6TK
+
 
 module_doc = '''"""
 !! Remember to run PySide6TK._generate_namespace.py to create this regenerate
@@ -31,8 +33,7 @@ this file before pushing updates!!
         >>>     ...
 """
 '''
-
-package_name = Path(__file__).parent.name
+package_name = PySide6TK.MODULE_NAME
 
 
 def _is_private(name: str) -> bool:

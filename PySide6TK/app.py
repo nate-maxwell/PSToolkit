@@ -17,6 +17,9 @@ from typing import Type
 from PySide6 import QtCore
 from PySide6 import QtWidgets
 
+AA_EnableHighDpiScaling = QtCore.Qt.ApplicationAttribute.AA_EnableHighDpiScaling
+AA_UseHighDpiPixmaps = QtCore.Qt.ApplicationAttribute.AA_UseHighDpiPixmaps
+
 
 def set_windows_app_user_model_id(app_id: str) -> None:
     """Set Windows AppUserModelID (improves taskbar grouping & jump list).
@@ -27,6 +30,9 @@ def set_windows_app_user_model_id(app_id: str) -> None:
     """
     if platform.system() != 'Windows':
         return
+
+    fn_name = 'set_windows_app_user_model_id'
+
     try:
         shell32 = ctypes.windll.shell32
         fn = getattr(shell32, 'SetCurrentProcessExplicitAppUserModelID', None)
@@ -37,13 +43,13 @@ def set_windows_app_user_model_id(app_id: str) -> None:
         fn(app_id)
 
     except OSError as err:
-        print(f'[set_windows_app_user_model_id] OSError calling SetCurrentProcessExplicitAppUserModelID: {err!r}')
+        print(f'[{fn_name}] OSError calling SetCurrentProcessExplicitAppUserModelID: {err!r}')
 
     except ValueError as err:
-        print(f'[set_windows_app_user_model_id] ValueError setting AppUserModelID: {err!r}')
+        print(f'[{fn_name}] ValueError setting AppUserModelID: {err!r}')
 
     except Exception as err:
-        print(f'[set_windows_app_user_model_id] Unexpected error: {type(err).__name__}: {err!r}')
+        print(f'[{fn_name}] Unexpected error: {type(err).__name__}: {err!r}')
 
 
 def single_instance_lock(name: str) -> QtCore.QLockFile:
@@ -82,8 +88,8 @@ def init_application(org: str, app_name: str,
         QtWidgets.QApplication: A constructed QApplication (not executed).
     """
     if enable_highdpi:
-        QtCore.QCoreApplication.setAttribute(QtCore.Qt.ApplicationAttribute.AA_EnableHighDpiScaling, True)
-        QtCore.QCoreApplication.setAttribute(QtCore.Qt.ApplicationAttribute.AA_UseHighDpiPixmaps, True)
+        QtCore.QCoreApplication.setAttribute(AA_EnableHighDpiScaling, True)
+        QtCore.QCoreApplication.setAttribute(AA_UseHighDpiPixmaps, True)
 
     QtCore.QCoreApplication.setOrganizationName(org)
     QtCore.QCoreApplication.setApplicationName(app_name)
@@ -122,7 +128,8 @@ def exec_single_instance_app(
     try:
         lock = single_instance_lock(lock_name or app_name)
     except RuntimeError:
-        QtWidgets.QMessageBox.information(None, f'{app_name}', 'Another instance is already running.')
+        info = 'Another instance is already running.'
+        QtWidgets.QMessageBox.information(None, app_name, info)
         return 0
 
     win = window_factory()

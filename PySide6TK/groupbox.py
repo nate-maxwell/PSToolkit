@@ -14,7 +14,43 @@ import PySide6TK.layout
 
 
 class GroupBox(QtWidgets.QGroupBox):
-    def __init__(self, label: str = '', collapsable: bool = False,
+    """A labeled container widget that groups related UI elements.
+
+    This class extends ``QGroupBox`` to provide optional collapsible and
+    orientation-based grouping of widgets and layouts. It simplifies
+    organization of interface sections, allowing sections to expand or
+    collapse dynamically if configured as collapsible.
+
+    Example:
+        >>> general_settings = GroupBox('General Settings', collapsible=True)
+        >>> general_settings.add_widget(QtWidgets.QLabel('Username:'))
+        >>> general_settings.add_widget(QtWidgets.QLineEdit())
+
+    Attributes:
+        layout (QtWidgets.QLayout): The main layout managing the grouped
+            child widgets and sub-layouts. Uses ``QVBoxLayout`` or
+            ``QHBoxLayout`` depending on the ``horizontal`` argument.
+
+    Args:
+        label (str): The title displayed at the top of the group box.
+            Defaults to an empty string.
+        collapsible (bool): If ``True``, the group box becomes checkable,
+            allowing users to collapse or expand its contents by toggling
+            the checkbox beside the label. Defaults to ``False``.
+        horizontal (bool): If ``True``, uses a horizontal layout for its
+            children; otherwise, uses a vertical layout. Defaults to ``False``.
+
+    Notes:
+        - When ``collapsible`` is enabled, the group box height dynamically
+          adjusts to its collapsed or expanded state.
+        - The helper function :func:`PySide6TK.layout.clear_layout` is used
+          to remove existing layout contents in :meth:`clear`.
+        - Visibility changes are recursively applied via
+          :func:`PySide6TK.layout.set_layout_visibility` in
+          :meth:`on_toggle`.
+    """
+
+    def __init__(self, label: str = '', collapsible: bool = False,
                  horizontal: bool = False) -> None:
         super().__init__(label)
         if horizontal:
@@ -22,7 +58,7 @@ class GroupBox(QtWidgets.QGroupBox):
         else:
             self.layout = QtWidgets.QVBoxLayout()
 
-        if collapsable:
+        if collapsible:
             self.setCheckable(True)
             self.setChecked(True)
             self.toggled.connect(self.on_toggle)

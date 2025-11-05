@@ -12,6 +12,31 @@ from PySide6 import QtWidgets
 
 
 class ScrollArea(QtWidgets.QScrollArea):
+    """A scrollable container widget supporting vertical or horizontal layout.
+
+    This class wraps a standard ``QScrollArea`` and provides a simplified
+    interface for building scrollable UI regions. The contained layout can be
+    either vertical or horizontal, determined at construction. Widgets or
+    layouts can then be appended using convenience methods.
+
+    Example:
+        >>> scroll = ScrollArea(horizontal=True)
+        >>> scroll.add_widget(QtWidgets.QPushButton('Click Me'))
+        >>> scroll.add_stretch()
+
+    Attributes:
+        widget_main (QtWidgets.QWidget): The main content widget that holds
+            the scrollable layout.
+        layout (QtWidgets.QLayout): The active layout for the scrollable area,
+            either ``QVBoxLayout`` or ``QHBoxLayout`` depending on the
+            constructor argument.
+
+    Args:
+        horizontal (bool): If ``True``, the layout will be horizontal
+            (``QHBoxLayout``); otherwise, vertical (``QVBoxLayout``).
+            Defaults to ``False``.
+    """
+
     def __init__(self, horizontal: bool = False) -> None:
         super().__init__()
         self.setWidgetResizable(True)

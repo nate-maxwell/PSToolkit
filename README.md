@@ -58,8 +58,14 @@ organized this way.
 `PySide6TK.styles` contains path variables to stored stylesheets. All of which
 can also be gotten from `PySide6TK.QtWrappers`.
 
-## Stylesheet Viewer
+## Examples
 
+### Code Snippets and Example Windows
+PySide6TK._examples is full of example files of code snippets along with
+`__name__ == '__main__'` idiom blocks to launch an example window showcasing
+the widget.
+
+### Stylesheet Viewer
 Run `PSToolkit._example.style_viewer` file itself, to see an example widget
 that displays all the collected style sheets.
 

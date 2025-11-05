@@ -14,6 +14,37 @@ from PySide6 import QtWidgets
 
 
 class LabeledSpinBox(QtWidgets.QWidget):
+    """A composite widget combining a label and a numeric spin box.
+
+    This class provides a labeled input field for numeric values, supporting
+    both integer and floating-point modes. The label can be positioned either
+    to the left of or above the spin box depending on layout orientation.
+    Useful for parameter entry fields in tool panels or property editors.
+
+    Example:
+        >>> size_field = LabeledSpinBox('Size', double=True)
+        >>> size_field.set_value(1.25)
+        >>> print(size_field.value())
+
+    Attributes:
+        layout_main (QtWidgets.QLayout): The main layout managing the label
+            and spin box widgets, set to ``QHBoxLayout`` or ``QVBoxLayout``
+            depending on the ``vertical`` argument.
+        label (QtWidgets.QLabel): The descriptive label displayed next to or
+            above the spin box.
+        spinbox (QtWidgets.QAbstractSpinBox): The numeric input field, either
+            a ``QSpinBox`` for integers or a ``QDoubleSpinBox`` for floats.
+
+    Args:
+        text (str): The label text displayed beside or above the spin box.
+        double (bool): If ``True``, uses a ``QDoubleSpinBox`` for floating-point
+            input; otherwise, uses a ``QSpinBox`` for integer input.
+            Defaults to ``False``.
+        vertical (bool): If ``True``, the label appears above the spin box
+            (vertical layout); otherwise, the label appears to the left
+            (horizontal layout). Defaults to ``False``.
+    """
+
     def __init__(self, text: str, double: bool = False,
                  vertical: bool = False) -> None:
         super().__init__()

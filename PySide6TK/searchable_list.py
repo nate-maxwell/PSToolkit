@@ -22,17 +22,10 @@ class SearchableList(QtWidgets.QWidget):
     pipeline directory structure.
 
     `Args`:
-        column_label(str):
-        Name of the column, displayed above the column.
+        column_label(str): Name of the column, displayed above the column.
 
-        index(int):
-        An index, or int id, number to
-        keep track of each instantiated SearchableList.
-        Defaults to 0.
-
-        multi_select(bool):
-        Whether the user can select more than one item at a time
-        in the list widget.
+        multi_select(bool): Whether the user can select more than one item at a
+            time in the list widget.
 
     `Methods`:
         item_selected: A pre-connected function for when an item is selected
@@ -43,10 +36,9 @@ class SearchableList(QtWidgets.QWidget):
         clear_list:
         Clears the items from the QListWidget component.
     """
-    def __init__(self, column_label: str, index: int = 0, multi_select: bool = False):
+    def __init__(self, column_label: str, multi_select: bool = False):
         super().__init__()
         self.column_label = column_label
-        self.index = index
         self.contents: list[str] = []
         self.multi_select = multi_select
 

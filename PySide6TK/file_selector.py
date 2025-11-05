@@ -15,6 +15,40 @@ from PySide6TK.labeled_line_edit import LabeledLineEdit
 
 
 class FileSelector(QtWidgets.QWidget):
+    """A labeled file path selector with an integrated browse button.
+
+    This class combines a labeled line edit and an “Open” button to create
+    a simple UI component for selecting files from disk. When the button is
+    pressed, a file dialog is opened, and the chosen path is displayed in
+    the line edit. The selected path can then be accessed via the ``path``
+    property.
+
+    Example:
+        >>> file_selector = FileSelector('File Path:')
+        >>> print(file_selector.path)
+        >>> # Opens a dialog to choose a file
+        >>> file_selector.find_path()
+
+    Attributes:
+        name (str): The label text displayed before the input field.
+        hlayout_main (QtWidgets.QHBoxLayout): The horizontal layout managing
+            the label, line edit, and open button.
+        le_path (LabeledLineEdit): The labeled line edit used to display and
+            edit the selected file path.
+        btn_exe (QtWidgets.QPushButton): The button that opens the file
+            browser dialog.
+
+    Args:
+        name (str): The label text to display before the line edit.
+
+    Notes:
+        - The “Open” button launches a standard ``QFileDialog``.
+        - If the line edit already contains a valid path, the file dialog
+          will start in that directory.
+        - The selected file path is stored internally and can be accessed as
+          a ``pathlib.Path`` via the :attr:`path` property.
+    """
+
     def __init__(self, name: str) -> None:
         """Label text before line edit."""
         super().__init__()

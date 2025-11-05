@@ -14,8 +14,35 @@ import PySide6TK
 
 
 class GridLayout(QtWidgets.QGridLayout):
-    """Grid layout with convenience functions for adding to latest columns and
-    rows.
+    """A convenience subclass of ``QGridLayout`` for dynamic grid placement.
+
+    This layout provides helper methods for automatically adding widgets or
+    layouts to new rows or columns, based on the most recently occupied cell.
+    It simplifies incremental UI construction without requiring manual
+    tracking of row and column indices.
+
+    Example:
+        >>> grid = GridLayout()
+        >>> grid.add_to_new_row(QtWidgets.QLabel('Name:'))
+        >>> grid.add_to_last_row(QtWidgets.QLineEdit())
+        >>> grid.add_to_new_row(QtWidgets.QPushButton('Submit'))
+
+    Notes:
+        - If no cells are occupied, ``get_last_occupied_row`` and
+          ``get_last_occupied_column`` return ``-1``.
+        - Adding a new row or column automatically calculates the next
+          available index.
+        - Only widgets and layouts are supported; any other type will raise
+          ``ValueError``.
+
+    Methods:
+        get_last_occupied_row(): Returns the index of the last row containing
+            an item.
+        get_last_occupied_column(row): Returns the index of the last occupied
+            column in a given row.
+        add_to_new_row(item): Adds a widget or layout to the next available row.
+        add_to_last_row(item): Adds a widget or layout to the next available
+            column of the last occupied row.
     """
 
     def __init__(self) -> None:

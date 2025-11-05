@@ -20,6 +20,7 @@ from PySide6 import QtGui
 from PySide6.QtCore import QStandardPaths
 from PySide6 import QtWidgets
 
+import PySide6TK
 import PySide6TK.icons
 
 
@@ -50,8 +51,7 @@ def get_main_window_parent(widget: QtWidgets.QWidget) -> _optional_window:
     return None
 
 
-def set_window_icon(window: QtWidgets.QMainWindow,
-                    icon: Union[str, Path]) -> None:
+def set_window_icon(window: QtWidgets.QMainWindow, icon: Union[str, Path]) -> None:
     """
     Sets the window icon to the selected icon name from the icon folder.
     If the platform is windows, the tray icon is also set.
@@ -68,8 +68,8 @@ def set_window_icon(window: QtWidgets.QMainWindow,
         icon(str): The name to the icon if it lives in the mythos.resources folder,
             or the path to it.
     """
-    if type(icon) is str:
-        icon_path = Path(PySide6TK.gui.ICONS_PATH, icon)
+    if type(icon) is str:  # Not sure that I like this...
+        icon_path = Path(PySide6TK.icons.ICONS_PATH, icon)
     else:
         icon_path = icon
     window.setWindowIcon(QtGui.QIcon(icon_path.as_posix()))
@@ -84,8 +84,8 @@ def restore_window(window: QtWidgets.QMainWindow, settings: QtCore.QSettings) ->
     """Restore window geometry and state from QSettings.
 
     Args:
-        window: The main window to restore.
-        settings: The settings store to read from.
+        window (QtWidgets.QMainWindow): The main window to restore.
+        settings (QtCore.QSettings): The settings store to read from.
     """
     settings.beginGroup('main_window')
     geom_any = settings.value('geometry', None)
@@ -102,11 +102,20 @@ def restore_window(window: QtWidgets.QMainWindow, settings: QtCore.QSettings) ->
 
 
 def _as_bytearray(value: Any) -> QtCore.QByteArray:
-    """Coerce a settings value to QByteArray safely."""
+    """Coerce arbitrary data into a QByteArray safely.
+
+    Args:
+        value: Any Python object that might represent binary or text data.
+
+    Returns:
+        QtCore.QByteArray: A valid QByteArray, empty if conversion fails.
+    """
     if isinstance(value, QtCore.QByteArray):
         return value
     if isinstance(value, (bytes, bytearray, memoryview)):
         return QtCore.QByteArray(bytes(value))
+    if isinstance(value, str):
+        return QtCore.QByteArray(value.encode('utf-8'))
     return QtCore.QByteArray()
 
 
@@ -114,8 +123,8 @@ def save_window(window: QtWidgets.QMainWindow, settings: QtCore.QSettings) -> No
     """Save window geometry and state to QSettings.
 
     Args:
-        window: The main window to persist.
-        settings: The settings store to write to.
+        window (QtWidgets.QMainWindow): The main window to persist.
+        settings (QtCore.QSettings): The settings store to write to.
     """
     settings.beginGroup('main_window')
     settings.setValue('geometry', window.saveGeometry())
@@ -124,7 +133,7 @@ def save_window(window: QtWidgets.QMainWindow, settings: QtCore.QSettings) -> No
     settings.sync()
 
 
-def _ensure_on_screen(window: QtWidgets.QWidget) -> None:
+def _ensure_on_screen(window: QtWidgets.QMainWindow) -> None:
     """If the saved position is off-screen (e.g., monitor removed), move the
     window onscreen.
     """
@@ -177,7 +186,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle(window_name)
 
         ini_name = window_name.replace(' ', '_')
-        _settings_path: Path = Path(_appdata_path, f'PSToolkit/{ini_name}.ini')
+        _settings_path: Path = Path(_appdata_path, f'{PySide6TK.MODULE_NAME}/{ini_name}.ini')
         if not _settings_path.parent.exists():
             _settings_path.parent.mkdir(parents=True, exist_ok=True)
 

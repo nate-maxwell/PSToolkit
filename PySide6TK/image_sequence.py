@@ -24,14 +24,50 @@ import PySide6TK.regx
 
 
 class ImageSequence(QtCore.QObject):
-    """
-    Loops through icons from a directory over a timer.
-    Can create a QPixmap or QIcon from frames.
+    """A looping image sequence player that cycles through frames over time.
+
+    This class manages a sequence of image frames from a directory or a single
+    file and emits frame-change signals at a fixed frame rate. It can return
+    the current frame as either a ``QPixmap`` or ``QIcon`` for display in
+    PySide-based UI elements. The sequence loops automatically unless paused or
+    stopped.
+
+    Example:
+        >>> seq = ImageSequence(Path('icons/spinner'))
+        >>> seq.frame_changed.connect(lambda i: print(f'Frame {i}'))
+        >>> seq.start()
+
+        # To stop the sequence when closing a window:
+        >>> seq.stop()
+
+    Attributes:
+        DEFAULT_FPS (int): Default playback frame rate in frames per second.
+            Defaults to ``24``.
+        frame_changed (QtCore.Signal): Signal emitted whenever the frame index
+            changes, carrying the new frame number.
+        _fps (int): Current playback speed in frames per second.
+        _timer (QtCore.QTimer): Internal timer that drives frame advancement.
+        _frame (int): The current frame index in the sequence.
+        _frames (list[Path]): List of image file paths composing the sequence.
+        _directory (Optional[Path]): Directory containing the image sequence.
+        _paused (bool): Indicates whether playback is currently paused.
+
+    Args:
+        path (Optional[Path]): Path to a single image or a directory of images.
+            If a directory is provided, all files inside are treated as
+            sequence frames and sorted naturally.
+        *args: Additional arguments forwarded to the ``QObject`` constructor.
 
     Notes:
-        You will need a closeEvent or equivalent to stop the image sequence,
-        otherwise it will endlessly loop.
+        - The image sequence will loop endlessly unless explicitly stopped.
+        - You must connect :meth:`stop` or call it manually during
+          ``closeEvent`` or equivalent teardown to prevent infinite looping.
+        - The frame order is naturally sorted using
+          :func:`PySide6TK.regx.natural_sort_strings`.
+        - Supports both single images and full frame sequences.
+        - The ``percent`` property returns an approximate playback ratio.
     """
+
     DEFAULT_FPS = 24
     frame_changed = QtCore.Signal(int)
 
@@ -64,7 +100,7 @@ class ImageSequence(QtCore.QObject):
             return self._frames[0]
         return Path('/does/not/exist')
 
-    def set_path(self, path: Path):
+    def set_path(self, path: Path) -> None:
         """
         Set a single frame or a directory to an image sequence.
 
@@ -77,7 +113,7 @@ class ImageSequence(QtCore.QObject):
         elif path.is_dir():
             self.set_dirname(path)
 
-    def set_dirname(self, directory: Path):
+    def set_dirname(self, directory: Path) -> None:
         """
         Set the location to the image sequence.
 
@@ -99,38 +135,38 @@ class ImageSequence(QtCore.QObject):
         """
         return self._directory
 
-    def reset(self):
+    def reset(self) -> None:
         """Stop and reset the current frame to 0."""
         if not self._paused:
             self._frame = 0
         self._timer.stop()
 
-    def pause(self):
+    def pause(self) -> None:
         """ImageSequence will enter Paused state."""
         self._paused = True
         self._timer.stop()
 
-    def resume(self):
+    def resume(self) -> None:
         """ImageSequence will enter Playing state."""
         if self._paused:
             self._paused = False
             self._timer.start()
 
-    def stop(self):
+    def stop(self) -> None:
         """Stops the movie. ImageSequence enters NotRunning state."""
         self._timer.stop()
 
-    def start(self):
+    def start(self) -> None:
         """Starts the movie. ImageSequence will enter Running state."""
         self.reset()
         self._timer.start(int(1000.0 / self._fps))
 
     @property
-    def frames(self):
+    def frames(self) -> list:
         """Return all the filenames in the image sequence."""
         return self._frames
 
-    def _frame_changed(self):
+    def _frame_changed(self) -> None:
         """Triggered when the current frame changes."""
         if not self._frames:
             return
@@ -140,7 +176,7 @@ class ImageSequence(QtCore.QObject):
         self.jump_to_frame(frame)
 
     @property
-    def percent(self):
+    def percent(self) -> int:
         """Return the current frame position as a percentage."""
         if len(self._frames) == self._frame + 1:
             _percent = 1
@@ -201,7 +237,7 @@ class ImageSequence(QtCore.QObject):
         """
         return self._frame
 
-    def jump_to_frame(self, frame_num: int):
+    def jump_to_frame(self, frame_num: int) -> None:
         """Set the current frame."""
         if frame_num >= self.frame_count:
             frame_num = 0

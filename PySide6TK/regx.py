@@ -42,5 +42,4 @@ def validation_no_special_chars(string: str) -> bool:
     m = re.match(r'^[a-zA-Z0-9_]*$', string)
     if m and string != '':
         return True
-    else:
-        return False
+    return False

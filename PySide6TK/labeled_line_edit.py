@@ -13,6 +13,33 @@ from PySide6 import QtWidgets
 
 
 class LabeledLineEdit(QtWidgets.QWidget):
+    """A composite widget combining a label and a line edit.
+
+    This class creates a labeled text input field arranged either
+    horizontally (label to the left) or vertically (label above). It is
+    intended for use in form-like UIs or tool panels where clear labeling
+    of user input fields is required.
+
+    Example:
+        >>> name_field = LabeledLineEdit('Name:')
+        >>> name_field.set_placeholder_text('Enter your name')
+        >>> print(name_field.text())
+
+    Attributes:
+        layout_main (QtWidgets.QLayout): The main layout managing the label
+            and line edit widgets, set to ``QHBoxLayout`` or ``QVBoxLayout``
+            depending on the ``vertical`` argument.
+        label (QtWidgets.QLabel): The descriptive label displayed next to or
+            above the line edit.
+        line_edit (QtWidgets.QLineEdit): The editable text input field.
+
+    Args:
+        text (str): The label text displayed beside or above the input field.
+        vertical (bool): If ``True``, the label appears above the line edit
+            (vertical layout); otherwise, the label appears to the left
+            (horizontal layout). Defaults to ``False``.
+    """
+
     def __init__(self, text: str, vertical: bool = False) -> None:
         super().__init__()
         if vertical:
